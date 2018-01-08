@@ -4,7 +4,21 @@ import java.sql.Date;
 
 public class SuitBean {
 private int suite_id;
+private int org_id;
 private String suite_name;
+private String suite_desc;
+public int getOrg_id() {
+	return org_id;
+}
+public void setOrg_id(int org_id) {
+	this.org_id = org_id;
+}
+public String getSuite_desc() {
+	return suite_desc;
+}
+public void setSuite_desc(String suite_desc) {
+	this.suite_desc = suite_desc;
+}
 private Date date_created;
 private int delete_flag;
 public int getSuite_id() {
