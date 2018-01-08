@@ -1,14 +1,23 @@
 package testing;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.google.gson.Gson;
 
 import sqlops.ConnectionBean;
 import sqlops.DBOrgUserInsert;
 import sqlops.DBReadScript;
+import sqlops.DBReadSuite;
 import sqlops.DBSuiteInsert;
 import sqlops.DBUserInsert;
 
@@ -77,4 +86,22 @@ public class MyJerseyPage {
 		connbean.closeConnect();
 		return msg+"";	
 	}
+	
+	
+	@Path("/ReadSuite")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON })
+	public Response ReadSuite() {
+		 ConnectionBean connbean = new ConnectionBean();
+		 connbean.openConnection();
+		 DBReadSuite orguser = new DBReadSuite() ;
+		 List list = orguser.ReadSuite(connbean.g_connect);
+		 System.out.println("Read"+list);
+		 Gson gson = new Gson();
+		 String userIdList = gson.toJson(list);
+		 return Response.ok(userIdList).build();
+//		 GenericEntity<List<String>> entity = new GenericEntity<List<String>>(list) {};
+
+	}
+
 }
